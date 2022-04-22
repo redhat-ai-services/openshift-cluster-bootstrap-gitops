@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: openshift-gitops
+
+bases:
+  - ../../../components/argocd/apps/app-of-apps/overlays/default
+  - ../../../components/argocd/applicationsets/overlays/default
+  - ../../../components/argocd/projects/overlays/default
+
+patches:
+  - path: patch-applicationset-repo-revision.yaml
+    target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: ApplicationSet
+  - path: patch-app-repo-revision.yaml
+    target:
+      group: argoproj.io
+      version: v1alpha1
+      kind: Application

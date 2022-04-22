@@ -1,0 +1,27 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: storagecluster-job-sa-role
+rules:
+  - apiGroups:
+      - ocs.openshift.io 
+      - apiextensions.k8s.io
+    resources:
+      - storageclusters
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: storagecluster-job-sa-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: storagecluster-job-sa-role
+subjects:
+  - kind: ServiceAccount
+    name: storagecluster-wait-job-sa
+    namespace: openshift-storage

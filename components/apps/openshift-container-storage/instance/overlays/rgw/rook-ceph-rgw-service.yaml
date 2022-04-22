@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: rook-ceph-rgw-ocs-storagecluster-cephobjectstore
+  namespace: openshift-storage
+  labels:
+    app: rook-ceph-rgw
+    ceph_daemon_id: s3a
+    rgw: s3a
+    rook_cluster: openshift-storage
+    rook_object_store: s3a
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    app: rook-ceph-rgw
+    ceph_daemon_id: s3a
+    rgw: s3a
+    rook_cluster: openshift-storage
+    rook_object_store: s3a
+  type: ClusterIP
+  sessionAffinity: None
