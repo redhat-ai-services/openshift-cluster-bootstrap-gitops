@@ -1,6 +1,6 @@
 - op: replace
   path: /spec/source/repoURL
-  value: 'https://gitlab.consulting.redhat.com/intelligent-application-practice/xray/cluster-bootstrap.git'
+  value: 'https://github.com/strangiato/cluster-bootstrap.git'
 - op: replace
   path: /spec/source/targetRevision
   value: main

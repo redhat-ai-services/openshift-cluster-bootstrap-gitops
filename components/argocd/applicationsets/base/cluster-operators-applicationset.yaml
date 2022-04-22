@@ -59,7 +59,7 @@ spec:
             factor: 2
             maxDuration: 3m
       source:
-        repoURL: https://gitlab.consulting.redhat.com/intelligent-application-practice/xray/cluster-bootstrap.git
+        repoURL: https://github.com/strangiato/cluster-bootstrap.git
         targetRevision: main
         path: '{{values.path}}'
       destination:
