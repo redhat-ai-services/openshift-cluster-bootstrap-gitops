@@ -5,3 +5,8 @@ namespace: openshift-storage
 
 bases:
   - ../../base
+
+resources:
+  - node-label-job.yaml
+  - rbac.yaml
+  - service-account.yaml
