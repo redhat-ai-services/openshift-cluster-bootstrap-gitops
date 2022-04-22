@@ -58,7 +58,7 @@ do
 done
 
 echo "Apply overlay to override default instance"
-kustomize build bootstrap/overlays/rhpds-4.7 | oc apply -f -
+kustomize build bootstrap/overlays/rhpds-4.9 | oc apply -f -
 
 sleep 10
 echo "Waiting for all pods to redeploy"
