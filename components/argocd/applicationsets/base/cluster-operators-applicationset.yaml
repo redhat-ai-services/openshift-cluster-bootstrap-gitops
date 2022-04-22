@@ -20,11 +20,11 @@ spec:
           values:
             name: opendatahub-operator
             path: components/apps/opendatahub/operator/overlays/stable
-        # - cluster: local
-        #   url: https://kubernetes.default.svc
-        #   values:
-        #     name: openshift-container-storage-operator
-        #     path: components/apps/openshift-container-storage/aggregate/rgw-4.6
+        - cluster: local
+          url: https://kubernetes.default.svc
+          values:
+            name: openshift-data-foundations-operator
+            path: components/apps/openshift-data-foundations/operator/overlays/stable-4.9
         - cluster: local
           url: https://kubernetes.default.svc
           values:
