@@ -13,6 +13,11 @@ spec:
           - /bin/bash
           - -c
           - |
+            worker_count=$(oc get nodes --selector='node-role.kubernetes.io/worker' --output name | wc -l)
+            if [ ${worker_count} -lt 3 ]; then
+              echo "Not enough worker nodes present in cluster"
+              exit 1
+            fi
             echo "Labling the following nodes"
             oc get nodes --selector='node-role.kubernetes.io/worker'
             oc label nodes --selector='node-role.kubernetes.io/worker' cluster.ocs.openshift.io/openshift-storage="" --overwrite=true
