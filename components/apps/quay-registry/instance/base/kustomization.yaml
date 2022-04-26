@@ -4,4 +4,5 @@ kind: Kustomization
 namespace: quay
 
 resources:
+  - quay-namespace.yaml
   - quay-registry.yaml
