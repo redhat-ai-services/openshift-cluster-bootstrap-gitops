@@ -5,3 +5,7 @@ namespace: openshift-storage
 
 bases:
   - ../../base
+
+resources:
+  - ocsinitialization.yaml
+  - storagecluster.yaml
