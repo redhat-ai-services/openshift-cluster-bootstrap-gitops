@@ -14,7 +14,7 @@ patches:
       group: argoproj.io
       version: v1alpha1
       kind: ApplicationSet
-  - path: patch-app-repo-revision.yaml
+  - path: patch-application-repo-revision.yaml
     target:
       group: argoproj.io
       version: v1alpha1
