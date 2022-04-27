@@ -3,6 +3,8 @@ kind: Job
 metadata:
   name: storage-cluster-label-worker-nodes
   generateName: storage-cluster-label-worker-nodes-
+  annotations:
+    argocd.argoproj.io/hook: PreSync
 spec:
   template:
     spec:
