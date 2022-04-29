@@ -17,12 +17,12 @@ spec:
           - -c
           - |
             echo "Attempting to enable ${PLUGIN_NAME} plugin"
-            
+
             INSTALLED_PLUGINS=$(oc get consoles.operator.openshift.io cluster -o=jsonpath='{.spec.plugins}')
             if [[ "${INSTALLED_PLUGINS}" == *"${PLUGIN_NAME}"]]; then
               echo "${PLUGIN_NAME} is already enabled"
             else
-              oc patch consoles.operator.openshift.io cluster --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "'${PLUGIN_NAME}'"}]'
+              oc patch consoles.operator.openshift.io cluster --type=json --patch '[{"op": "add", "path": "/spec/plugins/-", "value": "'${PLUGIN_NAME}'"}]'
             fi
       restartPolicy: Never
       serviceAccount: enable-odf-console-plugin
