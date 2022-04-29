@@ -16,7 +16,7 @@ spec:
           - /bin/bash
           - -c
           - |
-
+            echo "Attempting to enable ${PLUGIN_NAME} plugin"
             oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["${PLUGIN_NAME}"] } }' --type=merge
       restartPolicy: Never
       serviceAccount: enable-odf-console-plugin
