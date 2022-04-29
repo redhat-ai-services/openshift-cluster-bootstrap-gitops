@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: enable-odf-console-plugin
+  generateName: enable-odf-console-plugin-
+spec:
+  template:
+    spec:
+      containers:
+      - name: labeler
+        image: image-registry.openshift-image-registry.svc:5000/openshift/cli
+        env:
+          - name: PLUGIN_NAME
+            value: 'odf-console'
+        command:
+          - /bin/bash
+          - -c
+          - |
+            oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["${PLUGIN_NAME}"] } }' --type=merge      restartPolicy: Never
+      serviceAccount: enable-odf-console-plugin
+      serviceAccountName: enable-odf-console-plugin
+  backoffLimit: 4
