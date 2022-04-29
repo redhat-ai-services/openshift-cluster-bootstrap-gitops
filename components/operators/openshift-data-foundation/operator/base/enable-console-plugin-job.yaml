@@ -17,6 +17,7 @@ spec:
           - -c
           - |
             oc patch consoles.operator.openshift.io cluster --patch '{ "spec": { "plugins": ["${PLUGIN_NAME}"] } }' --type=merge      restartPolicy: Never
+      restartPolicy: Never
       serviceAccount: enable-odf-console-plugin
       serviceAccountName: enable-odf-console-plugin
   backoffLimit: 4
