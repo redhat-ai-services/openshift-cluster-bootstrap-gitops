@@ -3,7 +3,6 @@ kind: ClusterRole
 metadata:
   name: node-labeler
   annotations:
-    argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-5"
 rules:
   - apiGroups: [""]

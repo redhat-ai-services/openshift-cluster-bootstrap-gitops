@@ -6,4 +6,5 @@ commonAnnotations:
 
 bases:
   - ../../../operator/overlays/stable-4.9
-  - ../../../instance/overlays/default
+  - ../../../instance/overlays/aws
+  - ../../../config-helpers/node-labeler/overlays/default
