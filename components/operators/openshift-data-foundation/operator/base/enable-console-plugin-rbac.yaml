@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   name: enable-odf-console-plugin
 rules:
-  - apiGroups: ["operator.openshift.io"]
+  - apiGroups: ["operator.openshift.io/v1"]
     resources:
       - consoles
     verbs:
