@@ -67,7 +67,7 @@ spec:
           backoff:
             duration: 5s
             factor: 2
-            maxDuration: 3m
+            maxDuration: 10m
       source:
         repoURL: https://github.com/strangiato/cluster-bootstrap.git
         targetRevision: main
