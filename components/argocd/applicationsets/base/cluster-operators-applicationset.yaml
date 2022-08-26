@@ -40,6 +40,11 @@ spec:
           values:
             name: seldon-operator
             path: components/operators/seldon/operator/overlays/stable
+        - cluster: local
+          url: https://kubernetes.default.svc
+          values:
+            name: web-terminal-operator
+            path: components/operators/web-terminal-operator/operator/overlays/fast
         # - cluster: local
         #   url: https://kubernetes.default.svc
         #   values:
