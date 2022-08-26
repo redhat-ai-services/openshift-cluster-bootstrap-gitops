@@ -5,4 +5,4 @@ namespace: openshift-gitops
 
 bases:
   - ../../base
-  - ../../../clusters/overlays/rhpds-4.9
+  - ../../../clusters/overlays/rhpds-4.10

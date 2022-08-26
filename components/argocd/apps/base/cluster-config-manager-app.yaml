@@ -11,7 +11,7 @@ spec:
     server: https://kubernetes.default.svc
   project: cluster-config
   source:
-    path: clusters/rhpds-4.9/argocd/
+    path: <patch-me>
     repoURL: https://github.com/strangiato/cluster-bootstrap.git
     targetRevision: main
   syncPolicy:

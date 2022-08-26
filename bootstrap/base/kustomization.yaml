@@ -3,4 +3,3 @@ kind: Kustomization
 
 bases:
   - ../../components/operators/openshift-gitops/instance/overlays/rhpds/
-  - ../../clusters/rhpds-4.9/argocd/

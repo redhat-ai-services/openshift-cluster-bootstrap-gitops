@@ -4,9 +4,8 @@ kind: Kustomization
 namespace: openshift-gitops
 
 bases:
-  - ../../../components/argocd/apps/app-of-apps/overlays/default
-  - ../../../components/argocd/applicationsets/overlays/default
-  - ../../../components/argocd/projects/overlays/default
+  - ../../base
+  - ../../../components/argocd/apps/overlays/rhpds-4.10
 
 patches:
   - path: patch-applicationset-repo-revision.yaml

@@ -3,3 +3,4 @@ kind: Kustomization
 
 resources:
   - cluster-config-manager-app.yaml
+  - openshift-data-foundations-app.yaml
