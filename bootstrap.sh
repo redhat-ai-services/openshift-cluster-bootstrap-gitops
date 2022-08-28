@@ -7,7 +7,7 @@ oc whoami
 LANG=C
 SLEEP_SECONDS=45
 ARGO_NS="openshift-gitops"
-VERSION="4.9"
+VERSION="4.10"
 
 # PS3='Select OpenShift Version: '
 # options=("4.7")
@@ -58,7 +58,7 @@ do
 done
 
 echo "Apply overlay to override default instance"
-kustomize build bootstrap/overlays/rhpds-4.9 | oc apply -f -
+kustomize build bootstrap/overlays/rhpds-$VERSION | oc apply -f -
 
 sleep 10
 echo "Waiting for all pods to redeploy"
