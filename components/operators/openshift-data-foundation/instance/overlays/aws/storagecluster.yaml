@@ -37,4 +37,3 @@ spec:
     preparePlacement: {}
     replica: 3
     resources: {}
-  # version: 4.9.0
