@@ -20,7 +20,7 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v2
       - name: Validate Manifests
-        run: ./hack/validate_manifests.sh
+        run: ./validate_manifests.sh
   yaml-lint:
     runs-on: ubuntu-latest
     steps:
