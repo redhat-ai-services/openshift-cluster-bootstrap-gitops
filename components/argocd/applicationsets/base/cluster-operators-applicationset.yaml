@@ -48,6 +48,11 @@ spec:
           - cluster: local
             url: https://kubernetes.default.svc
             values:
+              name: prometheus-user-workload-monitoring
+              path: components/operators/prometheus-monitoring/instance/overlays/user-workload-monitoring/
+          - cluster: local
+            url: https://kubernetes.default.svc
+            values:
               name: seldon-operator
               path: components/operators/seldon/operator/overlays/stable
           - cluster: local
