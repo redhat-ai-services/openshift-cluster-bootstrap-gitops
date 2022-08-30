@@ -3,7 +3,7 @@ extends: default
 rules:
   document-start: disable
   line-length: disable
-  comments-indentation: disable  
+  comments-indentation: disable
   braces:
     ignore: /grafana-operator/base/instance/grafana.yaml
   truthy:
