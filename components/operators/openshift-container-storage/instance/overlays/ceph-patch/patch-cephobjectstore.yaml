@@ -1,4 +1,0 @@
-- op: add
-  path: /spec/managedResources/cephObjectStores
-  value:
-    reconcileStrategy: ignore
