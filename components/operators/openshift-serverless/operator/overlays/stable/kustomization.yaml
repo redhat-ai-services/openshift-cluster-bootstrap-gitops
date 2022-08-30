@@ -5,9 +5,9 @@ bases:
   - ../../base
 
 patches:
-- target:
-    group: operators.coreos.com
-    version: v1alpha1
-    kind: Subscription
-    name: serverless-operator
-  path: patch-channel.yaml
+  - target:
+      group: operators.coreos.com
+      version: v1alpha1
+      kind: Subscription
+      name: serverless-operator
+    path: patch-channel.yaml

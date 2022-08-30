@@ -8,4 +8,3 @@ bases:
 
 resources:
   - knative-kafka.yaml
-

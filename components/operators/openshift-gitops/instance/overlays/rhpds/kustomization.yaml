@@ -6,7 +6,7 @@ namespace: openshift-gitops
 bases:
   - ../../base
 
-resources: 
+resources:
   - gitopsadmin-group.yaml
 
 patches:
