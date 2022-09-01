@@ -8,7 +8,12 @@ LANG=C
 SLEEP_SECONDS=45
 ARGO_NS="openshift-gitops"
 
-
+# Validate sealed secrets secret exists
+SEALED_SECRETS_SECRET=./bootstrap/base/sealed-secrets-secret.yaml
+if [ ! -f ${SEALED_SECRETS_SECRET} ]; then
+  echo "Missing ${SEALED_SECRETS_SECRET}"
+  echo "This master key is required to bootstrap sealed secrets.  Please add this key to the repo prior to running the bootstrap."
+fi
 
 PS3="Please select a bootstrap folder: "
 select bootstrap_dir in ./bootstrap/overlays/*/; 
