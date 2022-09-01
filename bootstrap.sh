@@ -7,21 +7,15 @@ oc whoami
 LANG=C
 SLEEP_SECONDS=45
 ARGO_NS="openshift-gitops"
-VERSION="4.10"
 
-# PS3='Select OpenShift Version: '
-# options=("4.7")
-# select opt in "${options[@]}"
-# do
-#     case $opt in
-#         "4.7")
-#             VERSION=$opt
-#             break
-#             ;;
-#         *) echo "invalid option $REPLY";;
-#     esac
-# done
+PS3="Please select a bootstrap folder: "
+select bootstrap_dir in ./bootstrap/overlays/*/; 
+do 
+    test -n "$bootstrap_dir" && break; 
+    echo ">>> Invalid Selection"; 
+done
 
+echo "Selected: ${bootstrap_dir}"
 
 echo ""
 echo "Installing GitOps Operator."
@@ -58,7 +52,7 @@ do
 done
 
 echo "Apply overlay to override default instance"
-kustomize build bootstrap/overlays/rhpds-$VERSION | oc apply -f -
+kustomize build ${bootstrap_dir} | oc apply -f -
 
 sleep 10
 echo "Waiting for all pods to redeploy"
