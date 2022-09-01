@@ -50,9 +50,29 @@ Request resources from the [Red Hat Product Demo System](https://source.redhat.c
 
 ## Bootstrapping a Cluster
 
-Login to your cluster using `oc`.
+Before beginning, make sure you are logged into your cluster using `oc`.
 
-Clone this repository to your local environment.
+Next, clone this repository to your local environment.
+
+### Sealed Secrets Bootstrap
+
+This repository deploys sealed-secrets and requires a sealed secret master key to bootstrap.  If you plan to reuse sealed-secrets created using another key you must obtain that key from the person that created the sealed-secrets.
+
+If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret.
+
+Execute the following script:
+
+```sh
+./bootstrap_sealed-secrets_secret.sh
+```
+
+This will install a new instance of Sealed Secrets on the cluster and create the following file:
+
+```sh
+bootstrap/base/sealed-secrets-secret.yaml
+```
+
+### Cluster Bootstrap
 
 Execute the following script:
 
@@ -90,20 +110,20 @@ Clusters is the main aggregation layer for all of the elements of the cluster.  
 
 Components contains the builk of the configuration.  Currently we are utilizing two main folders inside of `components`:
 
-- apps
 - argocd
+- operators
 
 The oppinionated configuration referenced above recommends several other folders in the `components` folder that we are not utilizing today but may be useful to add in the future.
+
+#### Argocd
+
+The argocd folder contains the ArgoCD specific objects needed to configure the items in the apps folder.  The folders inside of Argo represent the different custom resources ArgoCD supports and refer back to objects in the `apps` folder.
 
 #### Operators
 
 Operators contain the operators we wish to configure on the cluster and the details of how we would like them to be configured.
 
 The operators folder general follows a pattern where each folder in `operators` is intended to be a seperate ArgoCD application.  The majority of the folder structure utilized inside of those folders is a direct reference to the [redhat-cop/gitops-catalog](https://github.com/redhat-cop/gitops-catalog).  When attempting to add new operators to the cluster, be sure to check there first and feel free to contribute new components back to the catalog as well!
-
-#### Argocd
-
-The argocd folder contains the ArgoCD specific objects needed to configure the items in the apps folder.  The folders inside of Argo represent the different custom resources ArgoCD supports and refer back to objects in the `apps` folder.
 
 ## Updating the ArgoCD Groups
 
