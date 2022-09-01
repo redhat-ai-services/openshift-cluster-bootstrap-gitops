@@ -19,6 +19,7 @@ This repository will configure the following items.
 - OpenShift Logging Operator
 - OpenShift Pipelines Operator
 - OpenShift Serverless Operator
+- Sealed Secrest Operator
 - Seldon Operator
 - Web Terminal Operators
 

@@ -6,3 +6,4 @@ resources:
 
 bases:
   - ../../components/operators/openshift-gitops/instance/overlays/rhpds/
+  - ../../components/operators/sealed-secrets-operator/overlays/default

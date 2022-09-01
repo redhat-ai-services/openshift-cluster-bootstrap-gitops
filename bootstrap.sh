@@ -8,6 +8,8 @@ LANG=C
 SLEEP_SECONDS=45
 ARGO_NS="openshift-gitops"
 
+
+
 PS3="Please select a bootstrap folder: "
 select bootstrap_dir in ./bootstrap/overlays/*/; 
 do 
