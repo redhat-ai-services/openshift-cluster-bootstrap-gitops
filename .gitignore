@@ -1,7 +1,8 @@
 .idea/
 
-# .token
-
 manifest.yaml
 
 venv/
+
+# Sealed secret key
+bootstrap/base/sealed-secrets-secret.yaml
