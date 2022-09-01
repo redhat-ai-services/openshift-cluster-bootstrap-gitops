@@ -12,7 +12,7 @@ ARGO_NS="openshift-gitops"
 SEALED_SECRETS_SECRET=./bootstrap/base/sealed-secrets-secret.yaml
 if [ ! -f ${SEALED_SECRETS_SECRET} ]; then
   echo "Missing ${SEALED_SECRETS_SECRET}"
-  echo "This master key is required to bootstrap sealed secrets.  Please add this key to the repo prior to running the bootstrap."
+  echo "This master key is required to bootstrap sealed secrets and cannot be checked into git.  Please add this key to the repo prior to running the bootstrap."
 fi
 
 PS3="Please select a bootstrap folder: "
