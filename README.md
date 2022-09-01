@@ -6,14 +6,25 @@ The intention is that this will allow you to easily bootstrap an OpenShift-GitOp
 
 ## Components
 
+This repository will configure the following items.
+
+### Operators
+
 - AMQ-Streams Operator
 - Crunchy Postgres Operator
+- Elasticsearch Operator
 - OpenDataHub Operator
 - OpenShift Data Foundations Operator
 - OpenShift GitOps Operator
+- OpenShift Logging Operator
 - OpenShift Pipelines Operator
 - OpenShift Serverless Operator
-- Seldon
+- Seldon Operator
+- Web Terminal Operators
+
+### Additional Configurations
+
+- OpenShift Monitoring - User Workload Monitoring
 
 ## Prerequisites
 
