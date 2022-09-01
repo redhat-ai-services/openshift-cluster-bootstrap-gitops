@@ -1,37 +1,26 @@
----
 apiVersion: logging.openshift.io/v1
 kind: ClusterLogging
 metadata:
-  namespace: openshift-logging
   name: instance
-  annotations:
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   collection:
-    logs:
-      fluentd: {}
-      type: fluentd
-  curation:
-    curator:
-      schedule: 30 3 * * *
-    type: curator
+    type: fluentd
   logStore:
     elasticsearch:
+      resources:
+        requests:
+          memory: 2Gi
+      storage:
+        size: 200G
+        # storageClassName: replace-me
       nodeCount: 3
       redundancyPolicy: SingleRedundancy
-      storage:
-        size: 50G
-        storageClassName: REPLACE_ME
     retentionPolicy:
       application:
-        maxAge: 1d
-      audit:
-        maxAge: 1d
-      infra:
-        maxAge: 1d
+        maxAge: 7d
     type: elasticsearch
-  managementState: Managed
   visualization:
     kibana:
       replicas: 1
     type: kibana
+  managementState: Managed
