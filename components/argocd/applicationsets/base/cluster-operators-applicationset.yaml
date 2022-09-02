@@ -28,6 +28,11 @@ spec:
           - cluster: local
             url: https://kubernetes.default.svc
             values:
+              name: grafana-operator
+              path: components/operators/grafana/operator/overlays/v4
+          - cluster: local
+            url: https://kubernetes.default.svc
+            values:
               name: opendatahub-operator
               path: components/operators/opendatahub/operator/overlays/stable
           - cluster: local
