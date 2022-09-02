@@ -1,8 +1,6 @@
 # Cluster Bootstrap
 
-This project is still a work in progress.
-
-The intention is that this will allow you to easily bootstrap an OpenShift-GitOps instance to a new cluster which will then instantiate several operators on the cluster.
+This project is designed to bootstrap an OpenShift cluster with several operators and components that are utilized for Machine Learning.
 
 ## Components
 
