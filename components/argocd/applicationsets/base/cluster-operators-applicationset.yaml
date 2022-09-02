@@ -89,8 +89,8 @@ spec:
         #     factor: 2
         #     maxDuration: 10m
       source:
-        repoURL: https://github.com/strangiato/cluster-bootstrap.git
-        targetRevision: main
+        repoURL: patch-me-see-clusters-overlays
+        targetRevision: patch-me-see-clusters-overlays
         path: '{{values.path}}'
       destination:
         server: https://kubernetes.default.svc
