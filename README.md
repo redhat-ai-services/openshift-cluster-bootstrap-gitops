@@ -13,6 +13,7 @@ This repository will configure the following items.
 - AMQ-Streams Operator
 - Crunchy Postgres Operator
 - Elasticsearch Operator
+- Grafana
 - OpenDataHub Operator
 - OpenShift Data Foundations Operator
 - OpenShift GitOps Operator
