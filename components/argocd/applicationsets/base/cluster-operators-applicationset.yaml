@@ -25,11 +25,11 @@ spec:
             values:
               name: elasticsearch-operator
               path: components/operators/elasticsearch/operator/overlays/stable
-          - cluster: local
-            url: https://kubernetes.default.svc
-            values:
-              name: grafana-operator
-              path: components/operators/grafana/operator/overlays/v4
+          # - cluster: local
+          #   url: https://kubernetes.default.svc
+          #   values:
+          #     name: grafana-operator
+          #     path: components/operators/grafana/operator/overlays/v4
           - cluster: local
             url: https://kubernetes.default.svc
             values:
