@@ -4,6 +4,7 @@ set -e
 LANG=C
 SLEEP_SECONDS=45
 ARGO_NS="openshift-gitops"
+GITOPS_OVERLAY=components/operators/openshift-gitops/operator/overlays/latest/
 SEALED_SECRETS_FOLDER=components/operators/sealed-secrets-operator/overlays/default/
 SEALED_SECRETS_SECRET=bootstrap/base/sealed-secrets-secret.yaml
 
@@ -96,7 +97,7 @@ install_gitops(){
   echo ""
   echo "Installing GitOps Operator."
 
-  kustomize build components/operators/openshift-gitops/operator/overlays/stable/ | oc apply -f -
+  kustomize build ${GITOPS_OVERLAY} | oc apply -f -
 
   echo "Pause ${SLEEP_SECONDS} seconds for the creation of the gitops-operator..."
   sleep ${SLEEP_SECONDS}
