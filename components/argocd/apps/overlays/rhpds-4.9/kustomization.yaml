@@ -9,8 +9,8 @@ patches:
       group: argoproj.io
       version: v1alpha1
       kind: Application
-      name: cluster-config-manager
-    path: patch-cluster-config-manager.yaml
+      name: cluster-config-app-of-apps
+    path: patch-cluster-config-app-of-apps.yaml
   - target:
       group: argoproj.io
       version: v1alpha1
