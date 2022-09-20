@@ -36,6 +36,8 @@ spec:
         memory: 128Mi
     route:
       enabled: false
+  notifications:
+    enabled: false
   prometheus:
     enabled: false
     ingress:
@@ -43,6 +45,17 @@ spec:
     route:
       enabled: false
   initialSSHKnownHosts: {}
+  sso:
+    dex:
+      openShiftOAuth: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
+    provider: dex
   applicationSet:
     resources:
       limits:
@@ -52,7 +65,9 @@ spec:
         cpu: 250m
         memory: 512Mi
   rbac:
-    policy: "g, system:cluster-admins, role:admin"
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
     scopes: '[groups]'
   repo:
     resources:
@@ -70,15 +85,6 @@ spec:
       kinds:
       - TaskRun
       - PipelineRun
-  dex:
-    openShiftOAuth: true
-    resources:
-      limits:
-        cpu: 500m
-        memory: 256Mi
-      requests:
-        cpu: 250m
-        memory: 128Mi
   ha:
     enabled: false
     resources:
