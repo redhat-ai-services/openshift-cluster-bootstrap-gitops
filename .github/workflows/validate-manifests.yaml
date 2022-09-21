@@ -33,7 +33,7 @@ jobs:
         uses: ibiqlik/action-yamllint@v3
 
   lint-bash:
-    name: bash-lint
+    name: lint-bash
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
