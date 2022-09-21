@@ -1,4 +1,4 @@
-name: Manifests Validation
+name: Validate Manifests
 on:
   push:
     branches:
