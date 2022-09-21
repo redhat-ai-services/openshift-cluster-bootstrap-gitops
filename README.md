@@ -168,11 +168,6 @@ Explanation:
 Argo utilizes a `Health Check` to validate if an object has been successfully applied and updated, failed, or is progressing by the cluster.  The health check for the `Subscription` object looks at the `Condition` field in the `Subscription` which is updated by the `OLM`.  Once the `Subscription` is applied to the cluster, `OLM` creates several other objects in order to install the Operator.  Once the Operator has been installed `OLM` will report the status back to the `Subscription` object.  This reconciliation process may take several minutes even after the Operator has successfully installed.
 
 Resolution/Troubleshooting:
-<<<<<<< HEAD
-
-- Validate that the Opator has successfully installed via the `Installed Operators` section of the OpenShift Web Console.
-=======
 - Validate that the Operator has successfully installed via the `Installed Operators` section of the OpenShift Web Console.
->>>>>>> 15d8ad4 (update: fix spelling)
 - If the Operator has not installed, additional troubleshooting is required.
 - If the Operator has successfully installed, feel free to ignore the `Progressing` state and proceed.  `OLM` should reconcile the status after several minutes and Argo will update the state to `Healthy`.
