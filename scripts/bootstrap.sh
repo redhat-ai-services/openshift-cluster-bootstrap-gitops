@@ -8,6 +8,8 @@ GITOPS_OVERLAY=components/operators/openshift-gitops/operator/overlays/latest/
 SEALED_SECRETS_FOLDER=components/operators/sealed-secrets-operator/overlays/default/
 SEALED_SECRETS_SECRET=bootstrap/base/sealed-secrets-secret.yaml
 
+KUSTOMIZE_CMD="oc -k"
+
 OCP_VERSION=${OCP_VERSION}
 TMP_DIR=generated
 
@@ -97,7 +99,7 @@ install_gitops(){
   echo ""
   echo "Installing GitOps Operator."
 
-  kustomize build ${GITOPS_OVERLAY} | oc apply -f -
+  ${KUSTOMIZE_CMD} build ${GITOPS_OVERLAY} | oc apply -f -
 
   echo "Pause ${SLEEP_SECONDS} seconds for the creation of the gitops-operator..."
   sleep ${SLEEP_SECONDS}
@@ -145,7 +147,7 @@ main(){
   install_gitops
 
   echo "Apply overlay to override default instance"
-  kustomize build ${bootstrap_dir} | oc apply -f -
+  ${KUSTOMIZE_CMD} build ${bootstrap_dir} | oc apply -f -
 
   sleep 10
   echo "Waiting for all pods to redeploy"
