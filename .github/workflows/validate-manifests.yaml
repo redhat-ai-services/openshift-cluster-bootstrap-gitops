@@ -22,7 +22,9 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v2
       - name: Validate Manifests
-        run: ./scripts/validate_manifests.sh
+        run: |
+          touch bootstrap/base/sealed-secrets-secret.yaml
+          ./scripts/validate_manifests.sh
 
   lint-yaml:
     runs-on: ubuntu-latest
