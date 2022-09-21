@@ -18,7 +18,7 @@ This repository will configure the following items.
 - OpenShift Logging Operator
 - OpenShift Pipelines Operator
 - OpenShift Serverless Operator
-- Sealed Secrest Operator
+- Sealed Secrets Operator
 - Seldon Operator
 - Web Terminal Operators
 
@@ -29,6 +29,7 @@ This repository will configure the following items.
 ## Prerequisites
 
 ### Client
+
 In order to bootstrap this repository you must have the following cli tools:
 
 - `oc` [Download OpenShift cli](https://formulae.brew.sh/formula/openshift-cli)
@@ -107,12 +108,12 @@ Clusters is the main aggregation layer for all of the elements of the cluster.  
 
 ### Components
 
-Components contains the builk of the configuration.  Currently we are utilizing two main folders inside of `components`:
+Components contains the bulk of the configuration.  Currently we are utilizing two main folders inside of `components`:
 
 - argocd
 - operators
 
-The oppinionated configuration referenced above recommends several other folders in the `components` folder that we are not utilizing today but may be useful to add in the future.
+The opinionated configuration referenced above recommends several other folders in the `components` folder that we are not utilizing today but may be useful to add in the future.
 
 #### Argocd
 
@@ -167,6 +168,7 @@ Explanation:
 Argo utilizes a `Health Check` to validate if an object has been successfully applied and updated, failed, or is progressing by the cluster.  The health check for the `Subscription` object looks at the `Condition` field in the `Subscription` which is updated by the `OLM`.  Once the `Subscription` is applied to the cluster, `OLM` creates several other objects in order to install the Operator.  Once the Operator has been installed `OLM` will report the status back to the `Subscription` object.  This reconciliation process may take several minutes even after the Operator has successfully installed.
 
 Resolution/Troubleshooting:
+
 - Validate that the Opator has successfully installed via the `Installed Operators` section of the OpenShift Web Console.
 - If the Operator has not installed, additional troubleshooting is required.
 - If the Operator has successfully installed, feel free to ignore the `Progressing` state and proceed.  `OLM` should reconcile the status after several minutes and Argo will update the state to `Healthy`.
