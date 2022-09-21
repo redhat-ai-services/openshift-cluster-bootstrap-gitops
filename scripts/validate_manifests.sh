@@ -14,7 +14,9 @@ Where:
   -sl | --schema-location      Location containing schemas"
 }
 
-KUSTOMIZE="${KUSTOMIZE:-kustomize}"
+which kustomize && KUSTOMIZE="kustomize build"
+
+KUSTOMIZE_CMD="${KUSTOMIZE_CMD:-oc kustomize}"
 IGNORE_MISSING_SCHEMAS="--ignore-missing-schemas"
 SCHEMA_LOCATION="${DIR}/openshift-json-schema"
 KUSTOMIZE_DIRS="${DIR}"
@@ -56,7 +58,7 @@ do
   echo "Validating $i"
   echo
 
-  KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE} build "$i")
+  KUSTOMIZE_BUILD_OUTPUT=$(${KUSTOMIZE_CMD} "$i")
 
   build_response=$?
 
