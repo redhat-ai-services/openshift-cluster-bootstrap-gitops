@@ -123,7 +123,7 @@ The argocd folder contains the ArgoCD specific objects needed to configure the i
 
 Operators contain the operators we wish to configure on the cluster and the details of how we would like them to be configured.
 
-The operators folder general follows a pattern where each folder in `operators` is intended to be a seperate ArgoCD application.  The majority of the folder structure utilized inside of those folders is a direct reference to the [redhat-cop/gitops-catalog](https://github.com/redhat-cop/gitops-catalog).  When attempting to add new operators to the cluster, be sure to check there first and feel free to contribute new components back to the catalog as well!
+The operators folder general follows a pattern where each folder in `operators` is intended to be a separate ArgoCD application.  The majority of the folder structure utilized inside of those folders is a direct reference to the [redhat-cop/gitops-catalog](https://github.com/redhat-cop/gitops-catalog).  When attempting to add new operators to the cluster, be sure to check there first and feel free to contribute new components back to the catalog as well!
 
 ## Updating the ArgoCD Groups
 

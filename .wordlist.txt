@@ -45,10 +45,7 @@ redistributions
 repo
 rhpds
 seldon
-seperate
 serverless
 sfdc
-storagecluster
-storagesystem
 sublicense
 yaml
