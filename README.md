@@ -32,8 +32,8 @@ This repository will configure the following items.
 
 In order to bootstrap this repository you must have the following cli tools:
 
-- `oc` [Download OpenShift cli](https://formulae.brew.sh/formula/openshift-cli)
-- `kustomize` [Download kustomize](https://formulae.brew.sh/formula/kustomize)
+- `oc` Download [mac](https://formulae.brew.sh/formula/openshift-cli)
+- `kustomize` Download [mac](https://formulae.brew.sh/formula/kustomize)
 
 ### Cluster Request
 
