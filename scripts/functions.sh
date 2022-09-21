@@ -63,8 +63,7 @@ check_oc_login(){
   oc cluster-info | head -n1
   oc whoami || exit 1
   echo
-
-  sleep 5
+  sleep 3
 }
 
 create_sealed_secret(){
