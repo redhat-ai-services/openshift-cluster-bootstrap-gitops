@@ -77,7 +77,7 @@ bootstrap/base/sealed-secrets-secret.yaml
 Execute the following script:
 
 ```sh
-./bootstrap.sh
+./scripts/bootstrap.sh
 ```
 
 The `bootstrap.sh` script will install the OpenShift GitOps Operator, create an ArgoCD instance once the operator is deployed in the `openshift-gitops` namespace, and bootstrap a set of ArgoCD applications to configure the cluster.
