@@ -58,19 +58,14 @@ Next, clone this repository to your local environment.
 
 This repository deploys sealed-secrets and requires a sealed secret master key to bootstrap.  If you plan to reuse sealed-secrets created using another key you must obtain that key from the person that created the sealed-secrets.
 
-If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret.
-
-Execute the following script:
-
-```sh
-./bootstrap_sealed-secrets_secret.sh
-```
-
-This will install a new instance of Sealed Secrets on the cluster and create the following file:
-
+The sealed secret(s) for bootstrap should be located at:
 ```sh
 bootstrap/base/sealed-secrets-secret.yaml
 ```
+
+If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret. 
+
+`bootstrap.sh` can also be to used to create the file if it doesn't already exist.
 
 ### Cluster Bootstrap
 
