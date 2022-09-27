@@ -1,0 +1,58 @@
+- op: add
+  path: /spec/generators/0/list/elements
+  value:
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: amq-streams-operator
+        path: components/operators/amq-streams/operator/overlays/stable
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: crunchy-postgres-operator
+        path: components/operators/crunchy-postgres/operator/overlays/v5
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: elasticsearch-operator
+        path: components/operators/elasticsearch/operator/overlays/stable
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: openshift-data-foundation-operator
+        path: components/operators/openshift-data-foundation/aggregate/overlays/aws-node-labeler-4.10
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: openshift-logging-operator
+        path: components/operators/openshift-logging/aggregate/overlays/default
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: openshift-pipelines-operator
+        path: components/operators/openshift-pipelines/operator/overlays/latest
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: openshift-serverless-operator
+        path: components/operators/openshift-serverless/aggregate/knative-kafka
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: prometheus-user-workload-monitoring
+        path: components/operators/prometheus-monitoring/instance/overlays/user-workload-monitoring/
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: sealed-secrets-operator
+        path: components/operators/sealed-secrets-operator/overlays/default
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: seldon-operator
+        path: components/operators/seldon/operator/overlays/stable
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
+        name: web-terminal-operator
+        path: components/operators/web-terminal-operator/operator/overlays/fast
