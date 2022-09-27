@@ -121,7 +121,7 @@ install_gitops(){
   done
 
   echo "Waiting for all pods to be created"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
+  deployments=(cluster kam openshift-gitops-application-controller openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
   for i in "${deployments[@]}";
   do
     echo "Waiting for deployment $i";
@@ -149,7 +149,7 @@ main(){
 
   sleep 10
   echo "Waiting for all pods to redeploy"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
+  deployments=(cluster kam openshift-gitops-application-controller openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
   for i in "${deployments[@]}";
   do
     echo "Waiting for deployment $i";
