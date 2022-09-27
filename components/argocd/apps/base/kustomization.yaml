@@ -4,4 +4,3 @@ kind: Kustomization
 resources:
   - cluster-config-app-of-apps.yaml
   - cluster-operators-applicationset.yaml
-  - openshift-data-foundations-app.yaml

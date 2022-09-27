@@ -1,3 +1,0 @@
-- op: replace
-  path: /spec/source/path
-  value: components/operators/openshift-data-foundation/aggregate/overlays/aws-node-labeler-4.10
