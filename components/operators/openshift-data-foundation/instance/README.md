@@ -12,7 +12,7 @@ Do not use the `base` directory directly, as you will need to patch the `channel
 
 ## Overlays
 
-The instaconfnce options for this operator currently offeres the following *overlays*:
+The instance options for this operator currently offers the following *overlays*:
 * [aws](overlays/aws)
 
 ### AWS

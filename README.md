@@ -44,7 +44,7 @@ Request resources from the [Red Hat Product Demo System](https://source.redhat.c
 1. Use `N/A` for the SFDC Opportunity, Campaign ID, or Partner Registration required field
 1. Utilize the default `Training` size to generate a cluster with three nodes
 1. Check confirmation box to acknowledge the warnings
-1. Select purpose from the optinons menu
+1. Select purpose from the options menu
 1. Click Submit at bottom of the page
 1. Provisioning should be automatic and will take 45-75 minutes to complete, connection details (web console, oc commands etc.) are provided in an email once complete
 
@@ -96,7 +96,7 @@ The cluster may take 10-15 minutes to finish installing and updating.
 
 ## Project Structure Overview
 
-This project structure is based on the oppinionated configuration found [here](https://github.com/gnunn-gitops/standards/blob/master/folders.md).  For a more detailed breakdown of the intention of this folder structure, feel free to read more there.
+This project structure is based on the opinionated configuration found [here](https://github.com/gnunn-gitops/standards/blob/master/folders.md).  For a more detailed breakdown of the intention of this folder structure, feel free to read more there.
 
 ### Bootstrap
 
@@ -123,7 +123,7 @@ The argocd folder contains the ArgoCD specific objects needed to configure the i
 
 Operators contain the operators we wish to configure on the cluster and the details of how we would like them to be configured.
 
-The operators folder general follows a pattern where each folder in `operators` is intended to be a seperate ArgoCD application.  The majority of the folder structure utilized inside of those folders is a direct reference to the [redhat-cop/gitops-catalog](https://github.com/redhat-cop/gitops-catalog).  When attempting to add new operators to the cluster, be sure to check there first and feel free to contribute new components back to the catalog as well!
+The operators folder general follows a pattern where each folder in `operators` is intended to be a separate ArgoCD application.  The majority of the folder structure utilized inside of those folders is a direct reference to the [redhat-cop/gitops-catalog](https://github.com/redhat-cop/gitops-catalog).  When attempting to add new operators to the cluster, be sure to check there first and feel free to contribute new components back to the catalog as well!
 
 ## Updating the ArgoCD Groups
 
@@ -169,6 +169,6 @@ Argo utilizes a `Health Check` to validate if an object has been successfully ap
 
 Resolution/Troubleshooting:
 
-- Validate that the Opator has successfully installed via the `Installed Operators` section of the OpenShift Web Console.
+- Validate that the Operator has successfully installed via the `Installed Operators` section of the OpenShift Web Console.
 - If the Operator has not installed, additional troubleshooting is required.
 - If the Operator has successfully installed, feel free to ignore the `Progressing` state and proceed.  `OLM` should reconcile the status after several minutes and Argo will update the state to `Healthy`.
