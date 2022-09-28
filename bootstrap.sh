@@ -163,6 +163,10 @@ main(){
     oc rollout status $i -n ${ARGO_NS}
   done
 
+  sleep 10
+  echo "Restart the application-controller to start the sync"
+  oc delete pods -l app.kubernetes.io/name=openshift-gitops-application-controller
+
   echo ""
   echo "Cluster has successfully deployed!  Check the status of the sync here:"
 
