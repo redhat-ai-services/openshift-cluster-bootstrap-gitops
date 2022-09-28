@@ -141,7 +141,7 @@ install_gitops(){
 }
 
 main(){
-  PS3="Please select a bootstrap folder: "
+  PS3="Enter a number to select a bootstrap folder: "
   select bootstrap_dir in bootstrap/overlays/*/; 
   do
       test -n "$bootstrap_dir" && break;
