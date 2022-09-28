@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Validate Manifests
         run: ./validate_manifests.sh
-  
+
   lint-yaml:
     runs-on: ubuntu-latest
     steps:
@@ -38,7 +38,7 @@ jobs:
           pip install yamllint
       - name: Validate Manifests
         run: yamllint . -f github
-  
+
   lint-helm:
     runs-on: ubuntu-latest
     env:
