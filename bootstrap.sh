@@ -11,6 +11,15 @@ SEALED_SECRETS_SECRET=bootstrap/base/sealed-secrets-secret.yaml
 OCP_VERSION=${OCP_VERSION}
 TMP_DIR=generated
 
+GITOPS_RESOURCES=(
+  deployment/cluster \
+  deployment/kam \
+  statefulset/openshift-gitops-application-controller \
+  deployment/openshift-gitops-applicationset-controller \
+  deployment/openshift-gitops-redis \
+  deployment/openshift-gitops-repo-server \
+  deployment/openshift-gitops-server \
+)
 
 setup_bin() {
   mkdir -p ${TMP_DIR}/bin
@@ -121,11 +130,10 @@ install_gitops(){
   done
 
   echo "Waiting for all pods to be created"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-  for i in "${deployments[@]}";
+  for i in "${GITOPS_RESOURCES[@]}";
   do
-    echo "Waiting for deployment $i";
-    oc rollout status deployment $i -n ${ARGO_NS}
+    echo "Waiting for $i";
+    oc rollout status $i -n ${ARGO_NS}
   done
 
   echo ""
@@ -149,12 +157,15 @@ main(){
 
   sleep 10
   echo "Waiting for all pods to redeploy"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-  for i in "${deployments[@]}";
+  for i in "${GITOPS_RESOURCES[@]}";
   do
-    echo "Waiting for deployment $i";
-    oc rollout status deployment $i -n ${ARGO_NS}
+    echo "Waiting for $i";
+    oc rollout status $i -n ${ARGO_NS}
   done
+
+  sleep 10
+  echo "Restart the application-controller to start the sync"
+  oc delete pods -l app.kubernetes.io/name=openshift-gitops-application-controller
 
   echo ""
   echo "Cluster has successfully deployed!  Check the status of the sync here:"
