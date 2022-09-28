@@ -3,4 +3,5 @@ kind: Kustomization
 
 bases:
   - ../../base
+  - ../../../components/operators/openshift-gitops/instance/overlays/rosa
   - ../../../clusters/overlays/rosa
