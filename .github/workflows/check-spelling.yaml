@@ -1,0 +1,17 @@
+name: Check Spelling
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  check-spelling:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v2
+      - name: Spellcheck
+        uses: rojopolis/spellcheck-github-actions@0.27.0
