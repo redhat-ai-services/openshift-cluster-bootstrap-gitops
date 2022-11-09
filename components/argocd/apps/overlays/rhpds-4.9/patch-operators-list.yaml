@@ -19,6 +19,11 @@
     - cluster: local
       url: https://kubernetes.default.svc
       values:
+        name: opendatahub-operator
+        path: components/operators/opendatahub/operator/overlays/stable
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
         name: openshift-data-foundation-operator
         path: components/operators/openshift-data-foundation/aggregate/overlays/aws-node-labeler-4.9
     - cluster: local
