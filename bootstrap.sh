@@ -163,8 +163,9 @@ main(){
     oc rollout status $i -n ${ARGO_NS}
   done
 
-  sleep 10
+  sleep 30
   echo "Restart the application-controller to start the sync"
+  # Restart is necessary to resolve a bug where apps don't start syncing after they are applied
   oc delete pods -l app.kubernetes.io/name=openshift-gitops-application-controller
 
   echo ""
