@@ -18,7 +18,7 @@ jobs:
           sudo curl -L -o /usr/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
           sudo chmod +x /usr/bin/kustomize
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Validate Manifests
         run: ./validate_manifests.sh
 
@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
@@ -50,7 +50,7 @@ jobs:
           sudo curl -L -o /usr/bin/helm https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz
           sudo chmod +x /usr/bin/helm
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Validate Charts
         run: |
           for i in `find "${HELM_DIRS}" -name "Chart.yaml" -exec dirname {} \;`;
@@ -78,6 +78,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Spellcheck
         uses: rojopolis/spellcheck-github-actions@0.27.0
