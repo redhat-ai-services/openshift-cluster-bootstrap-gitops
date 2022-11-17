@@ -40,9 +40,9 @@ In order to bootstrap this repository you must have the following cli tools:
 Request resources from the [Red Hat Product Demo System](https://source.redhat.com/departments/globalservices/gpte/redhatproductdemosystem)
 
 1. Access [RHPDS](https://rhpds.redhat.com/)
-1. Select the catalog item: Services > Catalogs > All Services > Openshift Workshops > OpenShift 4.9 Workshop > click Order
-1. Use `N/A` for the SFDC Opportunity, Campaign ID, or Partner Registration required field
+1. Select the catalog item: Services > Catalogs > All Services > Openshift Workshops > OpenShift 4.10 Workshop > click Order
 1. Utilize the default `Training` size to generate a cluster with three nodes
+1. If selecting a cluster size larger than `Training` use `N/A` for the SFDC Opportunity, Campaign ID, or Partner Registration required field
 1. Check confirmation box to acknowledge the warnings
 1. Select purpose from the options menu
 1. Click Submit at bottom of the page
@@ -53,24 +53,6 @@ Request resources from the [Red Hat Product Demo System](https://source.redhat.c
 Before beginning, make sure you are logged into your cluster using `oc`.
 
 Next, clone this repository to your local environment.
-
-### Sealed Secrets Bootstrap
-
-This repository deploys sealed-secrets and requires a sealed secret master key to bootstrap.  If you plan to reuse sealed-secrets created using another key you must obtain that key from the person that created the sealed-secrets.
-
-If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret.
-
-Execute the following script:
-
-```sh
-./bootstrap_sealed-secrets_secret.sh
-```
-
-This will install a new instance of Sealed Secrets on the cluster and create the following file:
-
-```sh
-bootstrap/base/sealed-secrets-secret.yaml
-```
 
 ### Cluster Bootstrap
 
