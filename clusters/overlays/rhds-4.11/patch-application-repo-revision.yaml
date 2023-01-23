@@ -3,4 +3,5 @@
   value: 'https://github.com/rh-intelligent-application-practice/openshift-cluster-bootstrap-gitops.git'
 - op: replace
   path: /spec/source/targetRevision
+  # TODO: switch this back to main before creating PR
   value: OCP4.11
