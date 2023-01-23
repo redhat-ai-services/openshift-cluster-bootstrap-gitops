@@ -39,7 +39,7 @@ In order to bootstrap this repository you must have the following cli tools:
 
 Login to the [Red Hat Demo Platform](https://demo.redhat.com), then navigate to `Catalog` > `Workshops`. In the filter option enter the text: `OpenShift 4.11`, then select the `OpenShift 4.11 Workshop` from the card list below. Finally, click the `Order` button to begin provisioning the new cluster.
 
-Enter required information for Activity and Purpose. Select a geo-region closest to you, such as `us-east-2`. Suggest leaving the other options at defaults unless you would like to specifically enable or disable them.
+Enter required information for Activity and Purpose. Select a region closest to you, such as `us-east-2`. Suggest leaving the other options at defaults unless you would like to specifically enable or disable them.
 
 The cluster will be created usually within an hour or so, and you should receive emails with links to access the cluster along with login credentials.
 
