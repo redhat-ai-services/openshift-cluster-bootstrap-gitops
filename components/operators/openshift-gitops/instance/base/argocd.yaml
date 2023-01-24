@@ -6,10 +6,10 @@ metadata:
     argocd.argoproj.io/sync-options: ServerSideApply=true
 spec:
   resourceTrackingMethod: annotation
-  server:	
-    route:	
-      enabled: true	
-      tls:	
+  server:
+    route:
+      enabled: true
+      tls:
         termination: reencrypt
   rbac:
     policy: |
