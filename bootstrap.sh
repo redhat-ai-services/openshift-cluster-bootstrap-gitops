@@ -153,7 +153,7 @@ main(){
   install_gitops
 
   echo "Apply overlay to override default instance"
-  kustomize build ${bootstrap_dir} | oc apply -f -
+  kustomize build ${bootstrap_dir} | oc apply -f - --server-side
 
   sleep 10
   echo "Waiting for all pods to redeploy"
