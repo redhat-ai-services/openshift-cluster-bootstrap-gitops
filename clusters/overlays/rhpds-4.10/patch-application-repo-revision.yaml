@@ -3,4 +3,4 @@
   value: 'https://github.com/rh-intelligent-application-practice/cluster-bootstrap-gitops.git'
 - op: replace
   path: /spec/source/targetRevision
-  value: main
+  value: ssa
