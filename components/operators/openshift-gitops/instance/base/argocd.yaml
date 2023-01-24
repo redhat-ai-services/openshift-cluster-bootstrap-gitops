@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ArgoCD
+metadata:
+  name: openshift-gitops
+  annotations:
+    argocd.argoproj.io/sync-options: ServerSideApply=true
+spec:
+  resourceTrackingMethod: annotation
+  server:	
+    route:	
+      enabled: true	
+      tls:	
+        termination: reencrypt
+  rbac:
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
+    scopes: '[groups]'
