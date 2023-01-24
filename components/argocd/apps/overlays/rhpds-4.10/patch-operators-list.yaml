@@ -29,6 +29,11 @@
     - cluster: local
       url: https://kubernetes.default.svc
       values:
+        name: openshift-gitops-operator
+        path: components/operators/openshift-gitops/aggregate/overlays/rhpds
+    - cluster: local
+      url: https://kubernetes.default.svc
+      values:
         name: openshift-logging-operator
         path: components/operators/openshift-logging/aggregate/overlays/default
     - cluster: local
