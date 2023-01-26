@@ -4,6 +4,7 @@ metadata:
   name: openshift-gitops
   namespace: openshift-gitops
 spec:
+  resourceTrackingMethod: annotation
   server:
     autoscale:
       enabled: false
