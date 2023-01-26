@@ -1,5 +1,5 @@
 name: Manifests Validation
-on:
+on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - "*"
@@ -12,15 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KUSTOMIZE_VERSION: 4.5.7
+      KUSTOMIZE_URL: https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
+      BIN_PATH: /usr/bin
     steps:
       - name: Install Kustomize
         run: |
-          sudo curl -L -o /usr/bin/kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64
-          sudo chmod +x /usr/bin/kustomize
+          sudo curl "${KUSTOMIZE_URL}" -L -o ${BIN_PATH}/kustomize
+          sudo chmod +x ${BIN_PATH}/kustomize
       - name: Code Checkout
         uses: actions/checkout@v3
       - name: Validate Manifests
-        run: ./validate_manifests.sh
+        run: |
+          touch bootstrap/base/sealed-secrets-secret.yaml
+          ./scripts/validate_manifests.sh
 
   lint-yaml:
     runs-on: ubuntu-latest

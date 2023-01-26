@@ -32,8 +32,8 @@ This repository will configure the following items.
 
 In order to bootstrap this repository you must have the following cli tools:
 
-- `oc` [Download OpenShift cli](https://formulae.brew.sh/formula/openshift-cli)
-- `kustomize` [Download kustomize](https://formulae.brew.sh/formula/kustomize)
+- `oc` - Download [[mac](https://formulae.brew.sh/formula/openshift-cli)], [[linux](https://mirror.openshift.com/pub/openshift-v4/clients)]
+- `kustomize` (optional) - Download [[mac](https://formulae.brew.sh/formula/kustomize)], [[linux](https://github.com/kubernetes-sigs/kustomize/releases)]
 
 ### Cluster Request
 
@@ -68,7 +68,7 @@ This will install a new instance of Sealed Secrets on the cluster and create an 
 Execute the following script:
 
 ```sh
-./bootstrap.sh
+./scripts/bootstrap.sh
 ```
 
 The `bootstrap.sh` script will install the OpenShift GitOps Operator, create an ArgoCD instance once the operator is deployed in the `openshift-gitops` namespace, and bootstrap a set of ArgoCD applications to configure the cluster.
@@ -106,7 +106,7 @@ Components contains the bulk of the configuration.  Currently we are utilizing t
 
 The opinionated configuration referenced above recommends several other folders in the `components` folder that we are not utilizing today but may be useful to add in the future.
 
-#### Argocd
+#### ArgoCD
 
 The argocd folder contains the ArgoCD specific objects needed to configure the items in the apps folder.  The folders inside of Argo represent the different custom resources ArgoCD supports and refer back to objects in the `apps` folder.
 
