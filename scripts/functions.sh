@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-OCP_VERSION=4.10
-TMP_DIR=generated
+OCP_VERSION=4.11
+TMP_DIR=tmp
 SEALED_SECRETS_FOLDER=components/operators/sealed-secrets-operator/overlays/default/
 SEALED_SECRETS_SECRET=bootstrap/base/sealed-secrets-secret.yaml
 
@@ -36,7 +36,26 @@ check_bin(){
 }
 
 download_kubeseal(){
-  DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.18.2/kubeseal-0.18.2-linux-amd64.tar.gz
+  # Kubeseal releases can be found at:
+  # https://github.com/bitnami-labs/sealed-secrets/releases/
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX  
+    if [[ $(uname -p) == 'arm' ]]; then
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-darwin-arm64.tar.gz
+    else
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-darwin-amd64.tar.gz
+    fi
+  else
+    # Linix
+    if [[ $(uname -p) == 'arm' ]]; then
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-linux-arm.tar.gz
+    else
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-linux-amd64.tar.gz
+    fi  
+  fi
+  echo "Downloading Kubeseal: ${DOWNLOAD_URL}"
+
   curl "${DOWNLOAD_URL}" -L | tar vzx -C ${TMP_DIR}/bin kubeseal
 }
 

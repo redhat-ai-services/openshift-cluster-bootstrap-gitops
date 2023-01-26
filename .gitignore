@@ -2,7 +2,7 @@
 manifest.yaml
 venv/
 dictionary.dic
-tmp
+tmp/
 
 # Sealed secret key
 bootstrap/base/sealed-secrets-secret.yaml
