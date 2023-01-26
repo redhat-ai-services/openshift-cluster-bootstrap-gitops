@@ -4,4 +4,4 @@ kind: Kustomization
 bases:
   - ../../base
   - ../../../components/operators/openshift-gitops/instance/overlays/rhpds
-  - ../../../clusters/overlays/rhpds-4.9
+  - ../../../clusters/overlays/rhdp-4.10
