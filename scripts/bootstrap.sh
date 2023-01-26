@@ -51,7 +51,7 @@ install_gitops(){
 
 bootstrap_cluster(){
 
-  PS3="Please select a bootstrap folder: "
+  PS3="Please enter a number to select a bootstrap folder: "
   
   select bootstrap_dir in bootstrap/overlays/*/; 
   do
