@@ -126,3 +126,22 @@ check_sealed_secret(){
     create_sealed_secret
   fi
 }
+
+wait_for_openshift_gitops(){
+  echo "Checking status of all openshift-gitops pods"
+  GITOPS_RESOURCES=(
+    deployment/cluster \
+    deployment/kam \
+    statefulset/openshift-gitops-application-controller \
+    deployment/openshift-gitops-applicationset-controller \
+    deployment/openshift-gitops-redis \
+    deployment/openshift-gitops-repo-server \
+    deployment/openshift-gitops-server \
+  )
+
+  for i in "${GITOPS_RESOURCES[@]}"
+  do
+    echo "Waiting for ${i}"
+    oc rollout status ${i} -n ${ARGO_NS}
+  done
+}

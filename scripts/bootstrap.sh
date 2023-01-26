@@ -36,13 +36,7 @@ install_gitops(){
     sleep 5
   done
 
-  echo "Waiting for all pods to be created"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-  for i in "${deployments[@]}"
-  do
-    echo "Waiting for deployment $i"
-    oc rollout status deployment "$i" -n ${ARGO_NS}
-  done
+  wait_for_openshift_gitops
 
   echo ""
   echo "OpenShift GitOps successfully installed."
@@ -64,13 +58,7 @@ bootstrap_cluster(){
   kustomize build "${bootstrap_dir}" | oc apply -f -
 
   sleep 10
-  echo "Waiting for all pods to redeploy"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-  for i in "${deployments[@]}"
-  do
-    echo "Waiting for deployment $i"
-    oc rollout status deployment "$i" -n ${ARGO_NS}
-  done
+  wait_for_openshift_gitops
 
   sleep 10
   echo "Restart the application-controller to start the sync"
