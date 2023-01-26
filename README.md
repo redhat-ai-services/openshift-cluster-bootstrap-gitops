@@ -37,20 +37,15 @@ In order to bootstrap this repository you must have the following cli tools:
 
 ### Cluster Request
 
-Request resources from the [Red Hat Product Demo System](https://source.redhat.com/departments/globalservices/gpte/redhatproductdemosystem)
+Login to the [Red Hat Demo Platform](https://demo.redhat.com), then navigate to `Catalog` > `Workshops`. In the filter option enter the text: `OpenShift 4.11`, then select the `OpenShift 4.11 Workshop` from the card list below. Finally, click the `Order` button to begin provisioning the new cluster.
 
-1. Access [RHPDS](https://rhpds.redhat.com/)
-1. Select the catalog item: Services > Catalogs > All Services > OpenShift Workshops > OpenShift 4.9 Workshop > click Order
-1. Use `N/A` for the SFDC Opportunity, Campaign ID, or Partner Registration required field
-1. Utilize the default `Training` size to generate a cluster with three nodes
-1. Check confirmation box to acknowledge the warnings
-1. Select purpose from the options menu
-1. Click Submit at bottom of the page
-1. Provisioning should be automatic and will take 45-75 minutes to complete, connection details (web console, oc commands etc.) are provided in an email once complete
+Enter required information for Activity and Purpose. Select a region closest to you, such as `us-east-2`. Suggest leaving the other options at defaults unless you would like to specifically enable or disable them.
+
+The cluster will be created usually within an hour or so, and you should receive emails with links to access the cluster along with login credentials.
 
 ## Bootstrapping a Cluster
 
-Before beginning, make sure you are logged into your cluster using `oc`.
+Before beginning, make sure you are logged into your cluster using `oc login`. You can obtain a login token if required by utilizing the "Copy Login Command" found under your user profile in the OpenShift Web Console.
 
 Next, clone this repository to your local environment.
 
@@ -58,14 +53,15 @@ Next, clone this repository to your local environment.
 
 This repository deploys sealed-secrets and requires a sealed secret master key to bootstrap.  If you plan to reuse sealed-secrets created using another key you must obtain that key from the person that created the sealed-secrets.
 
-The sealed secret(s) for bootstrap should be located at:
+If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret.
+
+Execute the following script:
+
 ```sh
-bootstrap/base/sealed-secrets-secret.yaml
+./bootstrap_sealed-secrets_secret.sh
 ```
 
-If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret. 
-
-`bootstrap.sh` can also be to used to create the file if it doesn't already exist.
+This will install a new instance of Sealed Secrets on the cluster and create an initial sealed secrets file: `bootstrap/base/sealed-secrets-secret.yaml`
 
 ### Cluster Bootstrap
 
