@@ -23,7 +23,7 @@ spec:
     route:
       enabled: true
       tls:
-        termination: edge
+        termination: reencrypt
     service:
       type: ''
   grafana:
