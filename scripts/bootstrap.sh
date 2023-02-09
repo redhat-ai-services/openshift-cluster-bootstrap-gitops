@@ -7,12 +7,13 @@ source "$(dirname "$0")/functions.sh"
 LANG=C
 SLEEP_SECONDS=45
 ARGO_NS="openshift-gitops"
+GITOPS_OVERLAY=components/operators/openshift-gitops/operator/overlays/latest/
 
 install_gitops(){
   echo ""
   echo "Installing GitOps Operator."
 
-  kustomize build components/operators/openshift-gitops/operator/overlays/stable/ | oc apply -f -
+  kustomize build ${GITOPS_OVERLAY} | oc apply -f -
 
   echo "Pause ${SLEEP_SECONDS} seconds for the creation of the gitops-operator..."
   sleep ${SLEEP_SECONDS}
@@ -35,13 +36,7 @@ install_gitops(){
     sleep 5
   done
 
-  echo "Waiting for all pods to be created"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-  for i in "${deployments[@]}"
-  do
-    echo "Waiting for deployment $i"
-    oc rollout status deployment "$i" -n ${ARGO_NS}
-  done
+  wait_for_openshift_gitops
 
   echo ""
   echo "OpenShift GitOps successfully installed."
@@ -50,7 +45,7 @@ install_gitops(){
 
 bootstrap_cluster(){
 
-  PS3="Please select a bootstrap folder: "
+  PS3="Please enter a number to select a bootstrap folder: "
   
   select bootstrap_dir in bootstrap/overlays/*/; 
   do
@@ -63,13 +58,12 @@ bootstrap_cluster(){
   kustomize build "${bootstrap_dir}" | oc apply -f -
 
   sleep 10
-  echo "Waiting for all pods to redeploy"
-  deployments=(cluster kam openshift-gitops-applicationset-controller openshift-gitops-redis openshift-gitops-repo-server openshift-gitops-server)
-  for i in "${deployments[@]}"
-  do
-    echo "Waiting for deployment $i"
-    oc rollout status deployment "$i" -n ${ARGO_NS}
-  done
+  wait_for_openshift_gitops
+
+  sleep 10
+  echo "Restart the application-controller to start the sync"
+  # Restart is necessary to resolve a bug where apps don't start syncing after they are applied
+  oc delete pods -l app.kubernetes.io/name=openshift-gitops-application-controller -n ${ARGO_NS}
 
   echo
   echo "GitOps has successfully deployed!  Check the status of the sync here:"

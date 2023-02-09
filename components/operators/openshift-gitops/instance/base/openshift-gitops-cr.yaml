@@ -4,6 +4,7 @@ metadata:
   name: openshift-gitops
   namespace: openshift-gitops
 spec:
+  resourceTrackingMethod: annotation
   server:
     autoscale:
       enabled: false
@@ -19,10 +20,12 @@ spec:
       requests:
         cpu: 125m
         memory: 128Mi
+    insecure: true
     route:
       enabled: true
       tls:
-        termination: reencrypt
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect
     service:
       type: ''
   grafana:
