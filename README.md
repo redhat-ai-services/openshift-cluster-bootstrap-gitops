@@ -1,4 +1,4 @@
-# Cluster Bootstrap
+# MLOps OpenShift Cluster Bootstrap
 
 This project is designed to bootstrap an OpenShift cluster with several operators and components that are utilized for Machine Learning.
 
