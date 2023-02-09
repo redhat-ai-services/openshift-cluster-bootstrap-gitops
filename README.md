@@ -57,6 +57,8 @@ Clone this git repository to a directory location on your local workstation.
 
 This repository deploys sealed-secrets and requires a sealed secret master key to during the bootstrap process. 
 
+If this is the first time you have run this script, you may need to add a Sealed Secret master key. If any of your gitops repos depend on Sealed Secrets you will need to place a copy of the key in `bootstrap/base/sealed-secrets-secret.yaml`. Note that the project currently does not yet deploy any Sealed Secrets so you can skip adding the sealed secret and instead ask the bootstrap script to create a master key for you.
+
 The script will prompt: "Create NEW bootstrap/base/sealed-secrets-secret.yaml? [y/N]", you should answer:
 
 | New? | Description |
