@@ -2,6 +2,12 @@
 
 This project is designed to bootstrap an OpenShift cluster with several operators and components that are utilized for Machine Learning.
 
+The bootstrap script inside this repo will configure cluster level resources, primarily the various operators. This repo is intended to be reusable for different demos and contain a core set of OpenShift features that would commonly be used for a Data Science environment.
+
+Several key resources are also configured, such as OpenShift-GitOps and Sealed Secrets.  Once the initial components are deployed, several ArgoCD Application objects are created which are then used to install and manage the install of the operators on the cluster.
+
+One important feature of this repo is that it depends on a Sealed Secret master key which cannot be checked into git. If you already have a master key on your local machine it will automatically utilize that key when deploying Sealed Secrets. If a key is not present, the bootstrap script will prompt you before deploying Sealed Secrets, and saving a master key to your local machine for future reuse.  If any of your GitOps repos deploy a Sealed Secret object you must have the correct master key to unseal those objects, which means you may need to get the key from the user that initially sealed the secret.
+
 ## Components
 
 This repository will configure the following items.
