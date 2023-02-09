@@ -49,3 +49,11 @@ serverless
 sfdc
 sublicense
 yaml
+SealedSecret
+crypto
+decrypt
+kubeseal
+RHDS
+Kubernetes
+templated
+un
