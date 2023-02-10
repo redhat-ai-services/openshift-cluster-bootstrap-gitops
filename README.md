@@ -1,6 +1,12 @@
-# Cluster Bootstrap
+# OpenShift Cluster Bootstrap
 
 This project is designed to bootstrap an OpenShift cluster with several operators and components that are utilized for Machine Learning.
+
+The bootstrap script inside this repo will configure cluster level resources, primarily the various operators. This repo is intended to be reusable for different demos and contain a core set of OpenShift features that would commonly be used for a Data Science environment.
+
+Several key resources are also configured, such as OpenShift-GitOps and Sealed Secrets.  Once the initial components are deployed, several ArgoCD Application objects are created which are then used to install and manage the install of the operators on the cluster.
+
+One important feature of this repo is that it depends on a Sealed Secret master key which cannot be checked into git. If you already have a master key on your local machine it will automatically utilize that key when deploying Sealed Secrets. If a key is not present, the bootstrap script will prompt you before deploying Sealed Secrets, and saving a master key to your local machine for future reuse.  If any of your GitOps repos deploy a Sealed Secret object you must have the correct master key to unseal those objects, which means you may need to get the key from the user that initially sealed the secret.
 
 ## Components
 
@@ -28,50 +34,59 @@ This repository will configure the following items.
 
 ## Prerequisites
 
-### Client
+### Client Tooling
 
-In order to bootstrap this repository you must have the following cli tools:
+The bootstrap script relies on the following command line tools. If they're not already available on your system path, the bootstrap script will attempt to download them from the internet, and will place then in a `.\tmp` folder location where the bootstrap script was run:
 
-- `oc` - Download [[mac](https://formulae.brew.sh/formula/openshift-cli)], [[linux](https://mirror.openshift.com/pub/openshift-v4/clients)]
-- `kustomize` (optional) - Download [[mac](https://formulae.brew.sh/formula/kustomize)], [[linux](https://github.com/kubernetes-sigs/kustomize/releases)]
+- [oc](https://docs.openshift.com/container-platform/4.11/cli_reference/openshift_cli/getting-started-cli.html) - the OpenShift command-line interface (CLI) that allows for creation of applications, and can manage OpenShift Container Platform projects from a terminal.
 
-### Cluster Request
+- [kustomize](https://kubectl.docs.kubernetes.io/installation/kustomize/) - a Kubernetes configuration transformation tool that enables you to customize un-templated YAML files, leaving the original files untouched.
 
-Login to the [Red Hat Demo Platform](https://demo.redhat.com), then navigate to `Catalog` > `Workshops`. In the filter option enter the text: `OpenShift 4.11`, then select the `OpenShift 4.11 Workshop` from the card list below. Finally, click the `Order` button to begin provisioning the new cluster.
+- [kubeseal](https://github.com/bitnami-labs/sealed-secrets#installation) - uses asymmetric crypto to encrypt secrets that only the controller can decrypt. These encrypted secrets are encoded in a SealedSecret resource, which you can see as a recipe for creating a secret.
 
-Enter required information for Activity and Purpose. Select a region closest to you, such as `us-east-2`. Suggest leaving the other options at defaults unless you would like to specifically enable or disable them.
+- [openshift-install](https://github.com/openshift/installer/releases) (optional) - tooling that could be used for monitoring the [cluster installation progress](https://access.redhat.com/documentation/en-us/openshift_container_platform/4.11/html/installing/installing-on-a-single-node#install-sno-monitoring-the-installation-manually_install-sno-installing-sno-with-the-assisted-installer).
 
-The cluster will be created usually within an hour or so, and you should receive emails with links to access the cluster along with login credentials.
+### Access to an OpenShift Cluster
+
+Before running the bootstrap script, ensure that you have login access to your OpenShift cluster. This OpenShift cluster may have been provisioned though [RHDS](https://demo.redhat.com), or it may also be your own custom built cluster running on dedicated hardware.
+
+Make sure you are [logged into your cluster](https://docs.openshift.com/online/pro/cli_reference/get_started_cli.html) using the `oc login ...` command.  You can obtain a login token if required by utilizing the "Copy Login Command" found under your user profile in the OpenShift Web Console.
+
+The scripts require a user with sufficient permissions for installing and configuring operators, typically the `opentlc-mgr` user account on a Red Hat Demo System hosted cluster.
+
 
 ## Bootstrapping a Cluster
 
-Before beginning, make sure you are logged into your cluster using `oc login`. You can obtain a login token if required by utilizing the "Copy Login Command" found under your user profile in the OpenShift Web Console.
+Clone this git repository to a directory location on your local workstation.
 
-Next, clone this repository to your local environment.
+### Sealed Secrets
 
-### Sealed Secrets Bootstrap
+This repository deploys sealed-secrets and requires a sealed secret master key to during the bootstrap process. 
 
-This repository deploys sealed-secrets and requires a sealed secret master key to bootstrap.  If you plan to reuse sealed-secrets created using another key you must obtain that key from the person that created the sealed-secrets.
+> **_NOTE:_** This repo does not does not deploy any Sealed Secrets, it's goal is to simply setup the Sealed Secrets operator to enable future use.  If you plan to deploy any additional repos containing Sealed Secrets, consider updating the `sealed-secrets-secret.yaml` file with the master key to unseal those Sealed Secrets.  If you do not plan on deploying any Sealed Secrets, you can follow the prompts to allow the script to generate an initial master key for you.
 
-If you do not plan to utilize existing sealed secrets you can instead bootstrap a new sealed-secrets controller and obtain a new secret.
+The script will prompt: "Create NEW bootstrap/base/sealed-secrets-secret.yaml? [y/N]", you should answer:
 
-Execute the following script:
+| Answer | Description |
+| ------ | ----------- |
+| Yes    | Choose this option if this is a brand new project, and you do not have any Sealed Secrets you plan to deploy. The bootstrap script will generate a new sealed secrets yaml file containing the master key generated by the sealed-secrets controller. |
+| No     | If your cluster already has a sealed secrets master key, you should copy it into to the `bootstrap/base/sealed-secrets-secret.yaml`. Also, if you've re-running the bootstrap script, this sealed secret file already exists. |
+| -      | If you have already previously run the bootstrap script, your local copy of the repo will already contain the `bootstrap/base/sealed-secrets-secret.yaml` file and you will not be prompted to create a master key. If you do not want to re-use a master key on the new cluster, consider removing the `bootstrap/base/sealed-secrets-secret.yaml` file before re-executing the boot script. |
 
-```sh
-./bootstrap_sealed-secrets_secret.sh
-```
+Note that the sealed-secrets-secret.yaml file is explicitly excluded from being checked into git in the `.gitignore` file, this is because it contains sensitive data (the master key) which should NOT be stored in source control.
 
-This will install a new instance of Sealed Secrets on the cluster and create an initial sealed secrets file: `bootstrap/base/sealed-secrets-secret.yaml`
 
-### Cluster Bootstrap
+### Run the Cluster Bootstrap
 
-Execute the following script:
+Execute the bootstrap script to begin the installation process:
 
 ```sh
 ./scripts/bootstrap.sh
 ```
 
-The `bootstrap.sh` script will install the OpenShift GitOps Operator, create an ArgoCD instance once the operator is deployed in the `openshift-gitops` namespace, and bootstrap a set of ArgoCD applications to configure the cluster.
+When prompted to select a bootstrap folder, choose the overlay that matches your cluster version, for example: `bootstrap/overlays/rhpds-4.11/`.
+
+The `bootstrap.sh` script will now install the OpenShift GitOps Operator, create an ArgoCD instance once the operator is deployed in the `openshift-gitops` namespace, then bootstrap a set of ArgoCD applications to configure the cluster.
 
 Once the script completes, verify that you can access the ArgoCD UI using the URL output by the last line of the script execution. This URL should present an ArgoCD login page, showing that it was successfully deployed.
 
