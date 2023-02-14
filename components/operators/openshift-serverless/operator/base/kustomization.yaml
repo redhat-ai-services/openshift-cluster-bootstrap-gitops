@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: openshift-serverless
 
 resources:
-  - openshift-serverless-namespace.yaml
-  - openshift-serverless-operatorgroup.yaml
-  - serverless-operator-subscription.yaml
+- openshift-serverless-namespace.yaml
+- openshift-serverless-operatorgroup.yaml
+- serverless-operator-subscription.yaml

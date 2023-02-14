@@ -68,17 +68,16 @@ bootstrap_cluster(){
   echo "https://${route}"
 }
 
-# functions
+# Verify CLI tooling
 setup_bin
 check_bin oc
 check_bin kustomize
 check_bin kubeseal
 check_oc_login
 
-# bootstrap
+# Verify sealed secret
 check_sealed_secret
+
+# Execute bootstrap functions
 install_gitops
-
-exit
-
 bootstrap_cluster

@@ -3,29 +3,18 @@ kind: Kustomization
 
 namespace: openshift-gitops
 
-bases:
-  - ../../base
-  - ../../../components/argocd/apps/overlays/rosa
 
 patches:
-  - path: patch-applicationset-repo-revision.yaml
-    target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: ApplicationSet
-  - path: patch-application-repo-revision.yaml
-    target:
-      group: argoproj.io
-      version: v1alpha1
-      kind: Application
-  # Uncomment patches to disable automatic sync
-  # - path: patch-applicationset-manual-sync.yaml
-  #   target:
-  #     group: argoproj.io
-  #     version: v1alpha1
-  #     kind: ApplicationSet
-  # - path: patch-application-manual-sync.yaml
-  #   target:
-  #     group: argoproj.io
-  #     version: v1alpha1
-  #     kind: Application
+- path: patch-applicationset-repo-revision.yaml
+  target:
+    group: argoproj.io
+    kind: ApplicationSet
+    version: v1alpha1
+- path: patch-application-repo-revision.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    version: v1alpha1
+resources:
+- ../../base
+- ../../../components/argocd/apps/overlays/rosa
