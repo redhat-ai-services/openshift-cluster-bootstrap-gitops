@@ -141,19 +141,22 @@ check_sealed_secret(){
 wait_for_openshift_gitops(){
   echo "Checking status of all openshift-gitops pods"
   GITOPS_RESOURCES=(
-    deployment/cluster \
-    deployment/kam \
-    statefulset/openshift-gitops-application-controller \
-    deployment/openshift-gitops-applicationset-controller \
-    deployment/openshift-gitops-redis \
-    deployment/openshift-gitops-repo-server \
-    deployment/openshift-gitops-server \
+    deployment/cluster:condition=Available \
+    deployment/kam:condition=Available \
+    statefulset/openshift-gitops-application-controller:jsonpath='{.status.readyReplicas}'=1 \
+    deployment/openshift-gitops-applicationset-controller:condition=Available \
+    deployment/openshift-gitops-redis:condition=Available \
+    deployment/openshift-gitops-repo-server:condition=Available \
+    deployment/openshift-gitops-server:condition=Available \
   )
 
-  for i in "${GITOPS_RESOURCES[@]}"
+  for n in "${GITOPS_RESOURCES[@]}"
   do
-    echo "Waiting for ${i}..."
+    RESOURCE=$(echo $n | cut -d ":" -f 1)
+    CONDITION=$(echo $n | cut -d ":" -f 2)
+
+    echo "Waiting for ${RESOURCE} state to be ${CONDITION}..."
     #oc rollout status ${i} -n ${ARGO_NS}
-    oc wait --for=condition=Available deployment/cluster -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
+    oc wait --for=${CONDITION} ${RESOURCE} -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
   done
 }
