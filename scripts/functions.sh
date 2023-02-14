@@ -76,7 +76,7 @@ download_oc(){
   else
     # Linix
     DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-linux.tar.gz
-   fi
+  fi
   echo "Downloading OpenShift CLI: ${DOWNLOAD_URL}" 
   
   curl "${DOWNLOAD_URL}" -L | tar vzx -C ${TMP_DIR}/bin oc
@@ -156,7 +156,21 @@ wait_for_openshift_gitops(){
     CONDITION=$(echo $n | cut -d ":" -f 2)
 
     echo "Waiting for ${RESOURCE} state to be ${CONDITION}..."
-    #oc rollout status ${i} -n ${ARGO_NS}
-    oc wait --for=${CONDITION} ${RESOURCE} -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
+
+    if [[ "$RESOURCE" == "statefulset/openshift-gitops-application-controller" ]]; then
+
+      # Here's a workaround for waiting for a stateful set to be deloyed:
+      # https://github.com/kubernetes/kubernetes/issues/79606#issuecomment-1001246785
+      # instead of: oc rollout status ${RESOURCE} -n ${ARGO_NS}
+
+      oc wait pods --selector app.kubernetes.io/name=openshift-gitops-application-controller \
+                   --for=condition=Ready -n openshift-gitops --timeout=${SLEEP_SECONDS}s
+
+    else   
+
+      oc wait --for=${CONDITION} ${RESOURCE} -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
+
+    fi
+
   done
 }
