@@ -15,8 +15,9 @@ setup_bin(){
 
 check_bin(){
   name=$1
+  echo "Validating CLI tool: ${name}"
   
-  which "${name}" || download_"${name}"
+  which "${name}" || download_${name}
  
   case ${name} in
     oc|openshift-install|kustomize)
@@ -32,13 +33,12 @@ check_bin(){
       ${name} --version
       ;;
   esac
-  sleep 5
+  echo
 }
 
+# Kubeseal releases can be found at:
+# https://github.com/bitnami-labs/sealed-secrets/releases/
 download_kubeseal(){
-  # Kubeseal releases can be found at:
-  # https://github.com/bitnami-labs/sealed-secrets/releases/
-
   if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX  
     if [[ $(uname -p) == 'arm' ]]; then
@@ -66,7 +66,19 @@ download_ocp-install(){
 }
 
 download_oc(){
-  DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-client-linux.tar.gz
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX  
+    if [[ $(uname -p) == 'arm' ]]; then
+      DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-mac-arm64.tar.gz
+    else
+      DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-mac.tar.gz
+    fi
+  else
+    # Linix
+    DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-linux.tar.gz
+   fi
+  echo "Downloading OpenShift CLI: ${DOWNLOAD_URL}" 
+  
   curl "${DOWNLOAD_URL}" -L | tar vzx -C ${TMP_DIR}/bin oc
 }
 
@@ -82,7 +94,6 @@ check_oc_login(){
   oc cluster-info | head -n1
   oc whoami || exit 1
   echo
-  sleep 3
 }
 
 create_sealed_secret(){
@@ -118,7 +129,7 @@ create_sealed_secret(){
 # Validate sealed secrets secret exists
 check_sealed_secret(){
   if [ -f ${SEALED_SECRETS_SECRET} ]; then
-    echo "Exists: ${SEALED_SECRETS_SECRET}"
+    echo "Using Existing Sealed Secret: ${SEALED_SECRETS_SECRET}"
   else
     echo "Missing: ${SEALED_SECRETS_SECRET}"
     echo "The master key is required to bootstrap sealed secrets and CANNOT be checked into git."
@@ -141,7 +152,8 @@ wait_for_openshift_gitops(){
 
   for i in "${GITOPS_RESOURCES[@]}"
   do
-    echo "Waiting for ${i}"
-    oc rollout status ${i} -n ${ARGO_NS}
+    echo "Waiting for ${i}..."
+    #oc rollout status ${i} -n ${ARGO_NS}
+    oc wait --for=condition=Available deployment/cluster -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
   done
 }
