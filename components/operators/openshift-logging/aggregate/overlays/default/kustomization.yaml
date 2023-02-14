@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-logging
 
 resources:
-- ../../base
+  - ../../base

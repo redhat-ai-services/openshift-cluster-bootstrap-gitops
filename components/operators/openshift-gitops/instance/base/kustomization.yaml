@@ -1,9 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: openshift-gitops
+namespace:
+  openshift-gitops
 
   # - namespace.yaml
 resources:
-- cluster-role-binding.yaml
-- openshift-gitops-cr.yaml
+  - cluster-role-binding.yaml
+  - openshift-gitops-cr.yaml

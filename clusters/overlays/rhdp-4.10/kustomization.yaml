@@ -3,18 +3,18 @@ kind: Kustomization
 
 namespace: openshift-gitops
 
+resources:
+  - ../../base
+  - ../../../components/argocd/apps/overlays/rhdp-4.10
 
 patches:
-- path: patch-applicationset-repo-revision.yaml
-  target:
-    group: argoproj.io
-    kind: ApplicationSet
-    version: v1alpha1
-- path: patch-application-repo-revision.yaml
-  target:
-    group: argoproj.io
-    kind: Application
-    version: v1alpha1
-resources:
-- ../../base
-- ../../../components/argocd/apps/overlays/rhdp-4.10
+  - path: patch-applicationset-repo-revision.yaml
+    target:
+      group: argoproj.io
+      kind: ApplicationSet
+      version: v1alpha1
+  - path: patch-application-repo-revision.yaml
+    target:
+      group: argoproj.io
+      kind: Application
+      version: v1alpha1

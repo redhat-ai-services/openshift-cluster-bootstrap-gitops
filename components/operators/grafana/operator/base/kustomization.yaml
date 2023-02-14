@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-operators
 
 resources:
-- grafana-subscription.yaml
+  - grafana-subscription.yaml

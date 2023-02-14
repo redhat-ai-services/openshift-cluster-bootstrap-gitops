@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: knative-eventing
 
 resources:
-- ../../base
+  - ../../base

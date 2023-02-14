@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-monitoring
 
 resources:
-- cluster-monitoring-config.yaml
+  - cluster-monitoring-config.yaml

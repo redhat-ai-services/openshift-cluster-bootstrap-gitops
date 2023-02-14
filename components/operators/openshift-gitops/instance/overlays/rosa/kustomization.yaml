@@ -4,17 +4,17 @@ kind: Kustomization
 namespace: openshift-gitops
 
 resources:
-- ../../base
+  - ../../base
 
 patches:
-- patch: |-
-    - op: replace
-      path: /spec/rbac/policy
-      value: |
-        g, system:cluster-admins, role:admin
-        g, cluster-admins, role:admin
-  target:
-    kind: ArgoCD
-- path: patch-resource-customizations.yaml
-  target:
-    kind: ArgoCD
+  - patch: |-
+      - op: replace
+        path: /spec/rbac/policy
+        value: |
+          g, system:cluster-admins, role:admin
+          g, cluster-admins, role:admin
+    target:
+      kind: ArgoCD
+  - path: patch-resource-customizations.yaml
+    target:
+      kind: ArgoCD

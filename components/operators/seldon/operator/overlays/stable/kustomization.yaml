@@ -3,13 +3,13 @@ kind: Kustomization
 
 namespace: openshift-operators
 
+resources:
+  - ../../base
 
 patches:
-- path: patch-channel.yaml
-  target:
-    group: operators.coreos.com
-    kind: Subscription
-    name: seldon-operator-certified
-    version: v1alpha1
-resources:
-- ../../base
+  - path: patch-channel.yaml
+    target:
+      group: operators.coreos.com
+      kind: Subscription
+      name: seldon-operator-certified
+      version: v1alpha1

@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: openshift-storage
 
 resources:
-- ../../base
+  - ../../base
