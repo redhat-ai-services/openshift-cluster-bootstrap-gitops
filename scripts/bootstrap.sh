@@ -5,7 +5,7 @@ set -e
 source "$(dirname "$0")/functions.sh"
 
 LANG=C
-SLEEP_SECONDS=45
+TIMEOUT_SECONDS=45
 ARGO_NS="openshift-gitops"
 GITOPS_OVERLAY=components/operators/openshift-gitops/operator/overlays/latest/
 
@@ -28,13 +28,13 @@ install_gitops(){
   done
 
   echo "Waiting for gitops-operator-controller-manager to start..."
-  oc wait --for=condition=Available deployment/gitops-operator-controller-manager -n openshift-operators --timeout=${SLEEP_SECONDS}s
+  oc wait --for=condition=Available deployment/gitops-operator-controller-manager -n openshift-operators --timeout=${TIMEOUT_SECONDS}s
 
   echo "Waiting for openshift-gitops namespace to be created..."
-  oc wait --for=jsonpath='{.status.phase}'=Active namespace/openshift-gitops --timeout=${SLEEP_SECONDS}s
+  oc wait --for=jsonpath='{.status.phase}'=Active namespace/openshift-gitops --timeout=${TIMEOUT_SECONDS}s
 
   echo "Waiting for deployments to start..."
-  oc wait --for=condition=Available deployment/cluster -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
+  oc wait --for=condition=Available deployment/cluster -n ${ARGO_NS} --timeout=${TIMEOUT_SECONDS}s
 
   wait_for_openshift_gitops
 
