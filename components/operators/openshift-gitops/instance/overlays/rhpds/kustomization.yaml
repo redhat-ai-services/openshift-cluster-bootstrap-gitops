@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: openshift-gitops
 
 resources:
-  - gitopsadmin-group.yaml
   - ../../base
+  - gitopsadmin-group.yaml
 
 patches:
   - patch: |-
