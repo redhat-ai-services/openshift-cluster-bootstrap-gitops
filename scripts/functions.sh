@@ -164,7 +164,7 @@ wait_for_openshift_gitops(){
       # instead of: oc rollout status ${RESOURCE} -n ${ARGO_NS}
 
       oc wait pods --selector app.kubernetes.io/name=openshift-gitops-application-controller \
-                   --for=condition=Ready -n openshift-gitops --timeout=${SLEEP_SECONDS}s
+                   --for=condition=Ready -n ${ARGO_NS} --timeout=${SLEEP_SECONDS}s
 
     else   
 
