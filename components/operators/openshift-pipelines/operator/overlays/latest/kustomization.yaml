@@ -3,14 +3,14 @@ kind: Kustomization
 
 namespace: openshift-operators
 
-bases:
+resources:
   - ../../base
 
-patchesJson6902:
-  - target:
+patches:
+  - path: patch-channel.yaml
+    target:
       group: operators.coreos.com
-      version: v1alpha1
       kind: Subscription
       name: openshift-pipelines-operator
       namespace: openshift-operators
-    path: patch-channel.yaml
+      version: v1alpha1

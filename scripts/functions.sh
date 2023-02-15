@@ -15,8 +15,9 @@ setup_bin(){
 
 check_bin(){
   name=$1
+  echo "Validating CLI tool: ${name}"
   
-  which "${name}" || download_"${name}"
+  which "${name}" || download_${name}
  
   case ${name} in
     oc|openshift-install|kustomize)
@@ -32,13 +33,12 @@ check_bin(){
       ${name} --version
       ;;
   esac
-  sleep 5
+  echo
 }
 
+# Kubeseal releases can be found at:
+# https://github.com/bitnami-labs/sealed-secrets/releases/
 download_kubeseal(){
-  # Kubeseal releases can be found at:
-  # https://github.com/bitnami-labs/sealed-secrets/releases/
-
   if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX  
     if [[ $(uname -p) == 'arm' ]]; then
@@ -66,7 +66,19 @@ download_ocp-install(){
 }
 
 download_oc(){
-  DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-client-linux.tar.gz
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Mac OSX  
+    if [[ $(uname -p) == 'arm' ]]; then
+      DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-mac-arm64.tar.gz
+    else
+      DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-mac.tar.gz
+    fi
+  else
+    # Linix
+    DOWNLOAD_URL=https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-${OCP_VERSION}/openshift-install-linux.tar.gz
+  fi
+  echo "Downloading OpenShift CLI: ${DOWNLOAD_URL}" 
+  
   curl "${DOWNLOAD_URL}" -L | tar vzx -C ${TMP_DIR}/bin oc
 }
 
@@ -82,7 +94,6 @@ check_oc_login(){
   oc cluster-info | head -n1
   oc whoami || exit 1
   echo
-  sleep 3
 }
 
 create_sealed_secret(){
@@ -118,7 +129,7 @@ create_sealed_secret(){
 # Validate sealed secrets secret exists
 check_sealed_secret(){
   if [ -f ${SEALED_SECRETS_SECRET} ]; then
-    echo "Exists: ${SEALED_SECRETS_SECRET}"
+    echo "Using Existing Sealed Secret: ${SEALED_SECRETS_SECRET}"
   else
     echo "Missing: ${SEALED_SECRETS_SECRET}"
     echo "The master key is required to bootstrap sealed secrets and CANNOT be checked into git."
@@ -130,18 +141,36 @@ check_sealed_secret(){
 wait_for_openshift_gitops(){
   echo "Checking status of all openshift-gitops pods"
   GITOPS_RESOURCES=(
-    deployment/cluster \
-    deployment/kam \
-    statefulset/openshift-gitops-application-controller \
-    deployment/openshift-gitops-applicationset-controller \
-    deployment/openshift-gitops-redis \
-    deployment/openshift-gitops-repo-server \
-    deployment/openshift-gitops-server \
+    deployment/cluster:condition=Available \
+    deployment/kam:condition=Available \
+    statefulset/openshift-gitops-application-controller:jsonpath='{.status.readyReplicas}'=1 \
+    deployment/openshift-gitops-applicationset-controller:condition=Available \
+    deployment/openshift-gitops-redis:condition=Available \
+    deployment/openshift-gitops-repo-server:condition=Available \
+    deployment/openshift-gitops-server:condition=Available \
   )
 
-  for i in "${GITOPS_RESOURCES[@]}"
+  for n in "${GITOPS_RESOURCES[@]}"
   do
-    echo "Waiting for ${i}"
-    oc rollout status ${i} -n ${ARGO_NS}
+    RESOURCE=$(echo $n | cut -d ":" -f 1)
+    CONDITION=$(echo $n | cut -d ":" -f 2)
+
+    echo "Waiting for ${RESOURCE} state to be ${CONDITION}..."
+
+    if [[ "$RESOURCE" == "statefulset/openshift-gitops-application-controller" ]]; then
+
+      # Here's a workaround for waiting for a stateful set to be deloyed:
+      # https://github.com/kubernetes/kubernetes/issues/79606#issuecomment-1001246785
+      # instead of: oc rollout status ${RESOURCE} -n ${ARGO_NS}
+
+      oc wait pods --selector app.kubernetes.io/name=openshift-gitops-application-controller \
+                   --for=condition=Ready -n ${ARGO_NS} --timeout=${TIMEOUT_SECONDS}s
+
+    else   
+
+      oc wait --for=${CONDITION} ${RESOURCE} -n ${ARGO_NS} --timeout=${TIMEOUT_SECONDS}s
+
+    fi
+
   done
 }

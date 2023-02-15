@@ -3,7 +3,7 @@ kind: Kustomization
 
 namespace: openshift-gitops
 
-bases:
+resources:
   - ../../base
   - ../../../components/argocd/apps/overlays/rhdp-4.11
 
@@ -11,13 +11,13 @@ patches:
   - path: patch-applicationset-repo-revision.yaml
     target:
       group: argoproj.io
-      version: v1alpha1
       kind: ApplicationSet
+      version: v1alpha1
   - path: patch-application-repo-revision.yaml
     target:
       group: argoproj.io
-      version: v1alpha1
       kind: Application
+      version: v1alpha1
   # Uncomment patches to disable automatic sync
   # - path: patch-applicationset-manual-sync.yaml
   #   target:
@@ -27,5 +27,5 @@ patches:
   # - path: patch-application-manual-sync.yaml
   #   target:
   #     group: argoproj.io
-  #     version: v1alpha1
   #     kind: Application
+  #     version: v1alpha1

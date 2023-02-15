@@ -1,19 +1,19 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-bases:
+resources:
   - ../../base
 
 patches:
-  - target:
+  - path: patch-cluster-config-app-of-apps.yaml
+    target:
       group: argoproj.io
-      version: v1alpha1
       kind: Application
       name: cluster-config-app-of-apps
-    path: patch-cluster-config-app-of-apps.yaml
-  - target:
-      group: argoproj.io
       version: v1alpha1
+  - path: patch-operators-list.yaml
+    target:
+      group: argoproj.io
       kind: ApplicationSet
       name: cluster-operators-applicationset
-    path: patch-operators-list.yaml
+      version: v1alpha1
