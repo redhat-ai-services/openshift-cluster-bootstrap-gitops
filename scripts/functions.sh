@@ -39,19 +39,21 @@ check_bin(){
 # Kubeseal releases can be found at:
 # https://github.com/bitnami-labs/sealed-secrets/releases/
 download_kubeseal(){
+  KUBESEAL_VERSION="0.19.4"
+
   if [[ "$OSTYPE" == "darwin"* ]]; then
     # Mac OSX  
     if [[ $(uname -p) == 'arm' ]]; then
-      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-darwin-arm64.tar.gz
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-darwin-arm64.tar.gz
     else
-      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-darwin-amd64.tar.gz
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-darwin-amd64.tar.gz
     fi
   else
     # Linix
     if [[ $(uname -p) == 'arm' ]]; then
-      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-linux-arm.tar.gz
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-arm.tar.gz
     else
-      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.19.4/kubeseal-0.19.4-linux-amd64.tar.gz
+      DOWNLOAD_URL=https://github.com/bitnami-labs/sealed-secrets/releases/download/v${KUBESEAL_VERSION}/kubeseal-${KUBESEAL_VERSION}-linux-amd64.tar.gz
     fi  
   fi
   echo "Downloading Kubeseal: ${DOWNLOAD_URL}"
