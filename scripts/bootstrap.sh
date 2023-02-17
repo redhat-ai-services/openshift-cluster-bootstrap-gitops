@@ -22,7 +22,7 @@ install_gitops(){
   # https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#wait
 
   echo "Waiting for deployment of the gitops-operator-controller-manager to begin..."
-  until oc get deployment gitops-operator-controller-manager -n ${ARGO_NS}
+  until oc get deployment gitops-operator-controller-manager -n openshift-operators
   do
     sleep 5
   done
