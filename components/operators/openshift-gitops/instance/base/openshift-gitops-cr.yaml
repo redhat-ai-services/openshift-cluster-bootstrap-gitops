@@ -89,6 +89,7 @@ spec:
       - '*'
       kinds:
       - TaskRun
+      - PipelineRun
   ha:
     enabled: false
     resources:
