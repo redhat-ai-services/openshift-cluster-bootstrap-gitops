@@ -52,15 +52,20 @@ bootstrap_cluster(){
       echo ">>> Invalid Selection";
   done
 
+  echo
   echo "Selected: ${bootstrap_dir}"
+  echo
   echo "Apply overlay to override default instance"
   kustomize build "${bootstrap_dir}" | oc apply -f -
 
   wait_for_openshift_gitops
 
+  echo
   echo "Restart the application-controller to start the sync"
   # Restart is necessary to resolve a bug where apps don't start syncing after they are applied
   oc delete pods -l app.kubernetes.io/name=openshift-gitops-application-controller -n ${ARGO_NS}
+
+  wait_for_openshift_gitops
 
   route=$(oc get route openshift-gitops-server -o jsonpath='{.spec.host}' -n ${ARGO_NS})
   echo
