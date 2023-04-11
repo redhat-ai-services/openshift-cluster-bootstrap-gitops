@@ -3,4 +3,5 @@ apiVersion: user.openshift.io/v1
 metadata:
   name: gitopsadmins
 users:
+  - admin
   - opentlc-mgr
