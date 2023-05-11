@@ -21,7 +21,6 @@ metadata:
   name: node-labeler
   namespace: openshift-storage
   annotations:
-    argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/sync-wave: "-5"
 subjects:
   - kind: ServiceAccount
