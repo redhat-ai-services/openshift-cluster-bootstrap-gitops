@@ -13,7 +13,7 @@ spec:
           image: image-registry.openshift-image-registry.svc:5000/openshift/cli
           env:
             - name: PLUGIN_NAME
-              value: 'gitops-console'
+              value: 'gitops-plugin'
           command:
             - /bin/bash
             - -c
