@@ -19,7 +19,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: enable-gitops-console-plugin
-    namespace: openshift-operator
+    namespace: openshift-operators
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
