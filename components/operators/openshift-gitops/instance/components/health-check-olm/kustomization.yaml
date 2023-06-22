@@ -5,6 +5,6 @@ patches:
   - path: patch-installplan-health-check.yaml
     target:
       kind: ArgoCD
-  - path: patch-subscription-health-check.yaml
-    target:
-      kind: ArgoCD
+  # - path: patch-subscription-health-check.yaml
+  #   target:
+  #     kind: ArgoCD
