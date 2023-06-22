@@ -1,3 +1,1 @@
-Installs the OpenShift 4.8 *stable* channel version of the OpenShift GitOps Operator
-
-**Version: 1.2.0**
+Installs the *latest* channel version of the OpenShift GitOps Operator.  This channel tracks the latest stable release of OpenShift GitOps.

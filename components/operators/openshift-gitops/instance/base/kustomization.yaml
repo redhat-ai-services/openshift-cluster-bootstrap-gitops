@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: openshift-gitops
 
 resources:
-  - cluster-role-binding.yaml
-  - openshift-gitops-cr.yaml
+  - openshift-gitops.yaml
