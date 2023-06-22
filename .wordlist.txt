@@ -164,6 +164,7 @@ rhods
 RHODS
 rhpds
 Rollout
+rollouts
 runtime
 sagemaker
 Sagemaker
