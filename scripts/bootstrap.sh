@@ -21,14 +21,14 @@ install_gitops(){
   # kubectl wait docs:
   # https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#wait
 
-  echo "Waiting for deployment of the gitops-operator-controller-manager to begin..."
-  until oc get deployment gitops-operator-controller-manager -n openshift-operators
+  echo "Waiting for deployment of the openshift-gitops-operator-controller-manager to begin..."
+  until oc get deployment openshift-gitops-operator-controller-manager -n openshift-operators
   do
     sleep 5
   done
 
-  echo "Waiting for gitops-operator-controller-manager to start..."
-  oc wait --for=condition=Available deployment/gitops-operator-controller-manager -n openshift-operators --timeout=${TIMEOUT_SECONDS}s
+  echo "Waiting for openshift-gitops-operator-controller-manager to start..."
+  oc wait --for=condition=Available deployment/openshift-gitops-operator-controller-manager -n openshift-operators --timeout=${TIMEOUT_SECONDS}s
 
   echo "Waiting for ${ARGO_NS} namespace to be created..."
   oc wait --for=jsonpath='{.status.phase}'=Active namespace/${ARGO_NS} --timeout=${TIMEOUT_SECONDS}s
